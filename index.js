@@ -82,10 +82,10 @@ app.get("/id/:id", (req,res) =>{
 })
 
 app.put("/id/:id/", (req, res) => {
-  let sql = `UPDATE products SET name = "magia" WHERE id = ${req.params.id}`;
+  let sql = `UPDATE products SET name = '${req.body.name}' WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    res.send("Se actualiza el producto correctamente :)");
+    res.send("Se actualiza el producto correctamente :) SIUUU");
   });
 });
 
