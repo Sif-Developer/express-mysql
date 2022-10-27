@@ -4,9 +4,9 @@ const mysql = require("mysql2")
 
 const db = mysql.createConnection({
     host : 'localhost',
-    user : 'root',
-    password : 'admin123',
-    database : 'expressdb'
+    user : 'tu usuario de Mysql',
+    password : 'Tu password de Mysql',
+    database : 'Tu database'
 })
 
 db.connect()

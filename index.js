@@ -1,17 +1,17 @@
 const express = require("express");
 const app = express();
 const PORT = "3000";
-const db = require("./config/database.js");
+const db = require("./config/database");
 
 app.use(express.json());
 
-//todo Rutas
-// app.use("/products",require("./routes/products.js"))
-// app.use("/categories",require("./routes/posts"))
+//! ROUTES
+// const routes = require('./src/routes/index.routes')
+// app.use(routes)
 
 //* EXERCISE 1
 
-//todo CREAR BASE DE DATOS
+//todo CREATE DATA BASE
 app.get("/createdbd", (req, res) => {
   let sql = "CREATE DATABASE expressDB";
   db.query(sql, (err, result) => {
@@ -56,6 +56,7 @@ app.post("/createNewProduct/", (req, res) => {
     res.send("Nuevo producto añadido correctamente :)");
   });
 });
+
 
 //todo INSERT NEW CATEGORY FROM POSTMAN
 app.post("/createNewCategory/", (req, res) => {
@@ -108,7 +109,7 @@ app.put("/updateCategoryNameById/:id", (req, res) => {
 
 //* EXERCISE 3
 
-//todo SHOW ALL PRODUCTS
+// todo SHOW ALL PRODUCTS
 app.get("/showAllProducts", (req, res) => {
   let sql = "SELECT * FROM products";
   db.query(sql, (err, result) => {
@@ -180,8 +181,6 @@ app.get("/deleteProductByID/:id", (req, res) => {
     res.send("Product deleted by Id. See you in the next life... :_)");
   });
 });
-
-
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
