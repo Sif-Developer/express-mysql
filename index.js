@@ -9,6 +9,9 @@ app.use(express.json());
 // app.use("/products",require("./routes/products.js"))
 // app.use("/categories",require("./routes/posts"))
 
+
+//* EXERCISE 1
+
 //todo CREAR BASE DE DATOS
 app.get("/createdbd", (req, res) => {
   let sql = "CREATE DATABASE expressDB";
@@ -52,6 +55,8 @@ app.get("/createTableCategories", (req, res) => {
 //   });
 // });
 
+//* EXERCISE 2
+
 //todo INSERT NEW PRODUCT FROM POSTMAN
 app.post("/createNewProduct/", (req, res) => {
   let sql = `INSERT INTO products (name, price) values 
@@ -73,6 +78,9 @@ app.post("/createNewCategory/", (req, res) => {
     res.send("Nueva category añadida correctamente :)");
   });
 });
+
+
+//* EXERCISE 3
 
 //todo UPDATE PRODUCTS FROM POSTMAN
 //? UPDATE PRODUCT NAME
@@ -109,6 +117,21 @@ app.put("/updateCategoryNameById/:id", (req, res) => {
     res.send("Se ha actualizado el precio del producto correctamente :)");
   });
 });
+
+//* EXERCISE 3
+
+//todo SHOW ALL PRODUCTS
+app.get("/showAllProducts", (req, res) => {
+  let sql = "SELECT * FROM products";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//todo SHOW ALL CATEGORIES
+
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
