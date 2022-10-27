@@ -43,16 +43,6 @@ app.get("/createTableCategories", (req, res) => {
   });
 });
 
-// // DELETE TABLE CATEGORIES
-// app.get("/dropTableCategories", (req, res) => {
-//   let sql =
-//       "DROP TABLE categories";
-//   db.query(sql, (err, result) => {
-//     if (err) throw err;
-//     console.log(result);
-//     res.send("Table categories deleted. See you in the next life... :)");
-//   });
-// });
 
 //* EXERCISE 2
 
@@ -151,14 +141,14 @@ app.get("/showProductById/:id", (req, res) => {
 });
 
 //todo SHOW PRODUCTS DESCENDINGLY
-app.get("/showProductsDesc", (req, res) =>{
+app.get("/showProductsDesc", (req, res) => {
   let sql = "SELECT * FROM products order by id desc";
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.send(result);
   });
-})
+});
 
 //todo SHOW CATEGORY BY ID
 app.get("/showCategoryById/:id", (req, res) => {
@@ -169,6 +159,19 @@ app.get("/showCategoryById/:id", (req, res) => {
     res.send(result);
   });
 });
+
+//todo SHOW BY NAME
+app.get("/showProductByName/:name", (req, res) => {
+  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`; //SIIIIIIIIIIIIIIIIIIII
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//* EXERCISE 4
+
 
 
 
