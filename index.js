@@ -131,7 +131,14 @@ app.get("/showAllProducts", (req, res) => {
 });
 
 //todo SHOW ALL CATEGORIES
-
+app.get("/showAllCategories", (req, res) =>{
+  let sql = "SELECT * FROM categories";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+})
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
