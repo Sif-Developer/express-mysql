@@ -51,17 +51,16 @@ app.get("/createTableCategories", (req, res) => {
 //   });
 // });
 
-//? INSERT NEW PRODUCTS
+//? INSERT NEW PRODUCT FROM POSTMAN
 app.post("/", (req, res) => {
   let sql = `INSERT INTO products (name, price) values 
-            ('Leche', 3);`;
+              ('${req.body.name}', ${req.body.price});`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.send("Nuevos productos añadidos :)");
   });
 });
-
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
