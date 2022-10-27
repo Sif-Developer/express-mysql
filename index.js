@@ -160,6 +160,18 @@ app.get("/showProductsDesc", (req, res) =>{
   });
 })
 
+//todo SHOW CATEGORY BY ID
+app.get("/showCategoryById/:id", (req, res) => {
+  let sql = `SELECT * FROM categories WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+
+
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
 });
