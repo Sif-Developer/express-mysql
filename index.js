@@ -36,7 +36,7 @@ app.get("/createTableCategories", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send("Table categories created :)");
+    res.send("Tabla creada correctamente :)");
   });
 });
 
@@ -58,7 +58,7 @@ app.post("/createNewProduct/", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send("Nuevos productos añadidos :)");
+    res.send("Nuevo producto añadido correctamente :)");
   });
 });
 
@@ -68,10 +68,30 @@ app.post("/createNewCategory/", (req, res) => {
               ('${req.body.name}');`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(result);
-    res.send("Nueva category añadida :)");
+    console.log(result); 
+    res.send("Nueva category añadida correctamente :)");
   });
 });
+// ? GET ALL PRODUCTS
+app.get("/id/:id", (req,res) =>{
+  let sql = `SELECT * FROM products WHERE id = ('${req.body.name}', ${req.body.price})`;
+  db.query(sql, (err,result) =>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
+app.put("/id/:id/", (req, res) => {
+  let sql = `UPDATE products SET name = "magia" WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send("Se actualiza el producto correctamente :)");
+  });
+});
+
+
+
+
 
 
 
