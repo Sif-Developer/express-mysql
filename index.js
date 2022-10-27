@@ -52,7 +52,7 @@ app.get("/createTableCategories", (req, res) => {
 // });
 
 //? INSERT NEW PRODUCT FROM POSTMAN
-app.post("/", (req, res) => {
+app.post("/createNewProduct/", (req, res) => {
   let sql = `INSERT INTO products (name, price) values 
               ('${req.body.name}', ${req.body.price});`;
   db.query(sql, (err, result) => {
@@ -61,6 +61,19 @@ app.post("/", (req, res) => {
     res.send("Nuevos productos añadidos :)");
   });
 });
+
+//? INSERT NEW CATEGORY FROM POSTMAN
+app.post("/createNewCategory/", (req, res) => {
+  let sql = `INSERT INTO categories (name) values 
+              ('${req.body.name}');`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send("Nueva category añadida :)");
+  });
+});
+
+
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
