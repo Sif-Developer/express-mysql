@@ -9,7 +9,6 @@ app.use(express.json());
 // app.use("/products",require("./routes/products.js"))
 // app.use("/categories",require("./routes/posts"))
 
-
 //* EXERCISE 1
 
 //todo CREAR BASE DE DATOS
@@ -79,7 +78,6 @@ app.post("/createNewCategory/", (req, res) => {
   });
 });
 
-
 //* EXERCISE 3
 
 //todo UPDATE PRODUCTS FROM POSTMAN
@@ -91,11 +89,11 @@ app.put("/updateProductNameById/:id/", (req, res) => {
     res.send("Se actualiza el nombre del producto correctamente :) SIUUU");
   });
 });
-//! ME IMPRIMÍA TANTO EL NOMBRE COMO EL PRECIO EN LA MISMA COLUMNA.
-//! HE PROBADO A DONDE PONE "UPDATE products SET name"
+//! ME IMPRIMÍA TANTO EL NOMBRE COMO EL PRECIO EN LA MISMA COLUMNA "name".
+//! HE PROBADO DONDE PONE "UPDATE products SET name"
 //! PONER "UPDATE products SET (name,price) = ('${req.body.name}', ${req.body.price}) "
-//! Y UN MONTÓN DE VARIANTES añadiendo y quitando cosas, añadí incluso el values como el get.
-//! Y no quiere...
+//! Y UN MONTÓN DE VARIANTES añadiendo y quitando cosas, añadí incluso el values, poner comillas especiales ``... Y NADA :(
+//! No quiere...
 
 //! NO ME QUEDA OTRA QUE CREAR OTRA app QUE SE ENCARGUE ÚNICAMENTE DEL PRECIO...
 
@@ -131,8 +129,30 @@ app.get("/showAllProducts", (req, res) => {
 });
 
 //todo SHOW ALL CATEGORIES
-app.get("/showAllCategories", (req, res) =>{
+app.get("/showAllCategories", (req, res) => {
   let sql = "SELECT * FROM categories";
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//todo SHOW PRODUCTS WITH THEIR CATEGORIES
+
+//todo SELECT A PRODUCT BY ID
+app.get("/showProductById/:id", (req, res) => {
+  let sql = `SELECT * FROM products WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//todo SHOW PRODUCTS DESCENDINGLY
+app.get("/showProductsDesc", (req, res) =>{
+  let sql = "SELECT * FROM products order by id desc";
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
