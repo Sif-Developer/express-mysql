@@ -5,11 +5,11 @@ const db = require("./config/database.js");
 
 app.use(express.json());
 
-//? Rutas
+//todo Rutas
 // app.use("/products",require("./routes/products.js"))
 // app.use("/categories",require("./routes/posts"))
 
-//? CREAR BASE DE DATOS
+//todo CREAR BASE DE DATOS
 app.get("/createdbd", (req, res) => {
   let sql = "CREATE DATABASE expressDB";
   db.query(sql, (err, result) => {
@@ -19,7 +19,7 @@ app.get("/createdbd", (req, res) => {
   });
 });
 
-//? CREAR TABLE PRODUCTS
+//todo CREAR TABLE PRODUCTS
 app.get("/createTableProducts", (req, res) => {
   let sql =
     "CREATE TABLE products(id int AUTO_INCREMENT,name VARCHAR(255), price DECIMAL(10,2), PRIMARY KEY(id))";
@@ -29,7 +29,8 @@ app.get("/createTableProducts", (req, res) => {
     res.send("Table products created :)");
   });
 });
-//? CREAR TABLE CATEGORIES
+
+//todo CREAR TABLE CATEGORIES
 app.get("/createTableCategories", (req, res) => {
   let sql =
     "CREATE TABLE categories(id int AUTO_INCREMENT,name VARCHAR(255), PRIMARY KEY(id))";
@@ -40,7 +41,7 @@ app.get("/createTableCategories", (req, res) => {
   });
 });
 
-// //? DELETE TABLE CATEGORIES
+// // DELETE TABLE CATEGORIES
 // app.get("/dropTableCategories", (req, res) => {
 //   let sql =
 //       "DROP TABLE categories";
@@ -51,7 +52,7 @@ app.get("/createTableCategories", (req, res) => {
 //   });
 // });
 
-//? INSERT NEW PRODUCT FROM POSTMAN
+//todo INSERT NEW PRODUCT FROM POSTMAN
 app.post("/createNewProduct/", (req, res) => {
   let sql = `INSERT INTO products (name, price) values 
               ('${req.body.name}', ${req.body.price});`;
@@ -62,38 +63,42 @@ app.post("/createNewProduct/", (req, res) => {
   });
 });
 
-//? INSERT NEW CATEGORY FROM POSTMAN
+//todo INSERT NEW CATEGORY FROM POSTMAN
 app.post("/createNewCategory/", (req, res) => {
   let sql = `INSERT INTO categories (name) values 
               ('${req.body.name}');`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(result); 
+    console.log(result);
     res.send("Nueva category añadida correctamente :)");
   });
 });
-// ? GET ALL PRODUCTS
-app.get("/id/:id", (req,res) =>{
-  let sql = `SELECT * FROM products WHERE id = ('${req.body.name}', ${req.body.price})`;
-  db.query(sql, (err,result) =>{
-    if(err) throw err;
-    res.send(result)
-  })
-})
 
-app.put("/id/:id/", (req, res) => {
+//todo UPDATE PRODUCT
+//? UPDATE PRODUCT NAME
+app.put("/updateProductNameById/:id/", (req, res) => {
   let sql = `UPDATE products SET name = '${req.body.name}' WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    res.send("Se actualiza el producto correctamente :) SIUUU");
+    res.send("Se actualiza el nombre del producto correctamente :) SIUUU");
   });
 });
+//! ME IMPRIMÍA TANTO EL NOMBRE COMO EL PRECIO EN LA MISMA COLUMNA. 
+//! HE PROBADO A DONDE PONE "UPDATE products SET name" 
+//! PONER "UPDATE products SET (name,price) = ('${req.body.name}', ${req.body.price}) "
+//! Y UN MONTÓN DE VARIANTES añadiendo y quitando cosas, añadí incluso el values como el get.
+//! Y no quiere...
 
+//! NO ME QUEDA OTRA QUE CREAR OTRA app QUE SE ENCARGUE ÚNICAMENTE DEL PRECIO...
 
-
-
-
-
+//? UPDATE PRODUCT PRICE
+app.put("/updateProductPriceById/:id/", (req, res) => {
+  let sql = `UPDATE products SET price = '${req.body.price}' WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send("Se ha actualizado el precio del producto correctamente :)");
+  });
+});
 
 app.listen(PORT, () => {
   console.log("Servidor levantado en el port 3000");
