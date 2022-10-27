@@ -162,7 +162,7 @@ app.get("/showCategoryById/:id", (req, res) => {
 
 //todo SHOW BY NAME
 app.get("/showProductByName/:name", (req, res) => {
-  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`; //SIIIIIIIIIIIIIIIIIIII
+  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
@@ -171,7 +171,15 @@ app.get("/showProductByName/:name", (req, res) => {
 });
 
 //* EXERCISE 4
-
+//todo  DELETE PRODUCT BY ID
+app.get("/deleteProductByID/:id", (req, res) => {
+  let sql = `DELETE FROM products WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send("Product deleted by Id. See you in the next life... :_)");
+  });
+});
 
 
 
