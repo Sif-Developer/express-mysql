@@ -74,7 +74,7 @@ app.post("/createNewCategory/", (req, res) => {
   });
 });
 
-//todo UPDATE PRODUCT
+//todo UPDATE PRODUCTS FROM POSTMAN
 //? UPDATE PRODUCT NAME
 app.put("/updateProductNameById/:id/", (req, res) => {
   let sql = `UPDATE products SET name = '${req.body.name}' WHERE id = ${req.params.id}`;
@@ -83,8 +83,8 @@ app.put("/updateProductNameById/:id/", (req, res) => {
     res.send("Se actualiza el nombre del producto correctamente :) SIUUU");
   });
 });
-//! ME IMPRIMÍA TANTO EL NOMBRE COMO EL PRECIO EN LA MISMA COLUMNA. 
-//! HE PROBADO A DONDE PONE "UPDATE products SET name" 
+//! ME IMPRIMÍA TANTO EL NOMBRE COMO EL PRECIO EN LA MISMA COLUMNA.
+//! HE PROBADO A DONDE PONE "UPDATE products SET name"
 //! PONER "UPDATE products SET (name,price) = ('${req.body.name}', ${req.body.price}) "
 //! Y UN MONTÓN DE VARIANTES añadiendo y quitando cosas, añadí incluso el values como el get.
 //! Y no quiere...
@@ -94,6 +94,16 @@ app.put("/updateProductNameById/:id/", (req, res) => {
 //? UPDATE PRODUCT PRICE
 app.put("/updateProductPriceById/:id/", (req, res) => {
   let sql = `UPDATE products SET price = '${req.body.price}' WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send("Se ha actualizado el precio del producto correctamente :)");
+  });
+});
+
+//todo UPDATE PRODUCT NAME
+//? La tabla categories solo contiene la columna "name"
+app.put("/updateCategoryNameById/:id", (req, res) => {
+  let sql = `UPDATE categories SET name = '${req.body.name}' WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send("Se ha actualizado el precio del producto correctamente :)");
