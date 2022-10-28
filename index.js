@@ -6,8 +6,7 @@ const db = require("./config/database");
 app.use(express.json());
 
 //! ROUTES
-// const routes = require('./src/routes/index.routes')
-// app.use(routes)
+app.use("/products", require("./routes/products"))
 
 //* EXERCISE 1
 
@@ -44,18 +43,18 @@ app.get("/createTableCategories", (req, res) => {
 });
 
 
-//* EXERCISE 2
+//XERCISE 2
 
 //todo INSERT NEW PRODUCT FROM POSTMAN
-app.post("/createNewProduct/", (req, res) => {
-  let sql = `INSERT INTO products (name, price) values 
-              ('${req.body.name}', ${req.body.price});`;
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send("Nuevo producto añadido correctamente :)");
-  });
-});
+// app.post("/createNewProduct/", (req, res) => {
+//   let sql = `INSERT INTO products (name, price) values 
+//               ('${req.body.name}', ${req.body.price});`;
+//   db.query(sql, (err, result) => {
+//     if (err) throw err;
+//     console.log(result);
+//     res.send("Nuevo producto añadido correctamente :)");
+//   });
+// });* E
 
 
 //todo INSERT NEW CATEGORY FROM POSTMAN
@@ -173,7 +172,7 @@ app.get("/showProductByName/:name", (req, res) => {
 
 //* EXERCISE 4
 //todo  DELETE PRODUCT BY ID
-app.get("/deleteProductByID/:id", (req, res) => {
+app.delete("/deleteProductByID/:id", (req, res) => {
   let sql = `DELETE FROM products WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
